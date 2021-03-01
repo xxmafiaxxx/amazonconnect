@@ -1,0 +1,220 @@
+  <!DOCTYPE html>
+  <!-- saved from url=(0057)https://www.shortcircuited.net/connect/amazonconnect.html -->
+  <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Amazon Connect Demo Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="utf-8" http-equiv="encoding">
+    <link href="./file/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="./file/style(1).css">
+
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.797.0.min.js"></script>
+
+    <link href="./file/copybutton.css" rel="stylesheet" type="text/css">
+    <link href="./file/menuStyle.css" rel="stylesheet" type="text/css">
+    <script src="./file/jquery-3.1.0.min.js"></script>
+
+   <script type="text/javascript" src="./file/connect-streams.js"></script>  
+   <!-- <script src="../js/clipboard.min.js"></script> -->
+    
+   
+    <script src="./file/jquery.dataTables.min.js"></script>
+  </head>
+
+  <body>
+
+    <style>
+      #ccpContainer {
+        width: 265px;
+        height: 465px;
+        overflow: hidden;
+        float: left;
+        margin-left: 22px;
+        padding: 25px;
+      }
+
+      #section-main {
+        padding: 10px;
+        max-width: 600px;
+        height: 495px;
+        margin-left: 0px;
+        float: left;
+        overflow: hidden;
+      }
+
+      #attributes_wrapper {
+        font-size: 14px;
+        width: 550px;
+        height: 175px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+    </style>
+    <section id="ccpContainer">
+      <div id="ccpContainer1">
+        <script>
+          //Connect CCP Integration
+          $(document).ready(function(){
+            $(document).on("click","#showAttributes",function(){
+              postGetData()
+            })
+
+
+          });
+          function postGetData()
+          {
+            var params = [];
+              
+             $.ajax(
+              {
+                method:'GET',
+                url:'https://jsqyh5ih0l.execute-api.us-east-1.amazonaws.com/Live/get',
+                contentType: "application/json;",
+                data:JSON.stringify(params),
+                datatype:"json",
+                async:false,
+                success:function(response)
+                {
+                  if (response.code == 200)
+                  {
+                    var firstName = response.data.firstName;
+                    var lastName = response.data.lastName;
+                    var phoneNumber = response.data.phoneNumber;
+                    var problem = response.data.problem;
+                    var status = response.data.status;
+
+                    $("#phoneNumber").val(phoneNumber);
+                    $("#firstName").val(firstName);
+                    $("#lastName").val(lastName);
+                    $("#problem").val(problem);
+                    $("#status").val(status);
+
+
+
+
+
+                  }
+                }
+              });
+          }
+        </script>
+      </div>
+    </section>
+    <section id="section-main">
+      <header>
+        <h1>Shortcircuited Robotics CCP  </h1>
+        <p>Demonstrates the abilty to embed the Call Control Panel </p>
+      </header>
+
+  	   <form name="contactDetails" id="contactDetails">
+        <fieldset>
+          <legend>Contact Details</legend>
+          <div>
+            <label for="phoneNumber">Phone Number</label>
+            <input name="phoneNumber" type="tel" id="phoneNumber" placeholder="+15551112222" readonly="">
+          </div>
+  		  
+          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label for="firstName" style="width: 128px;">Full Name</label>
+                  </td>
+                  <td>
+                    <input name="firstName" type="text" id="firstName" placeholder="First Name" style="width:161px">
+                  </td>
+                  <td>
+                    <input name="lastName" type="text" id="lastName" placeholder="Last Name" style="width:162px">
+                  </td>
+                  <td>
+                    <button class="btn" type="button" id="updateName">ok
+                      <img class="clippy" id="updateNameIMG" src="./file/sync.svg" width="17" alt="Copy to clipboard">
+                  </button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  		          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label for="firstName" style="width: 128px;">Machine Info. </label>
+                  </td>
+                  <td>
+                    <input name="machineType" type="text" id="machineType" placeholder="Machine Type" style="width:161px">
+                  </td>
+                  <td>
+                    <input name="machineModel" type="text" id="machineModel" placeholder="Machine Model" style="width:162px">
+                  </td>
+                  <td>
+                    <button class="btn" type="button" id="updateMachine">
+                      <img class="clippy" id="updateNameIMG" src="./file/sync.svg" width="17" alt="Copy to clipboard">
+                  </button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  		 
+  		  
+
+  		  
+  		  <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label for="contactID" style="width: 128px;">Problem</label>
+                  </td>
+                  <td>
+                    <input name="problem" type="text" id="problem" placeholder="Client Problem" style="width: 340px" readonly="">
+                  </td>
+                  <td>
+                    <button class="btn" type="button" id="btn" data-clipboard-demo="" data-clipboard-target="#problem">
+                      <img class="clippy" src="./file/sync.svg" width="17" alt="Update to database">
+                  </button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  		  
+  		  
+  		          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <label for="contactID" style="width: 128px;">Contact ID</label>
+                  </td>
+                  <td>
+                    <input name="contactID" type="text" id="contactID" placeholder="Contact ID" style="width: 340px" readonly="">
+                  </td>
+                  <td>
+                    <button class="btn" type="button" id="btn" data-clipboard-demo="" data-clipboard-target="#contactID">
+                      <img class="clippy" src="./file/clippy.svg" width="17" alt="Copy to clipboard">
+                  </button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  	  
+  		  
+  		  
+          <div>
+            <div id="hiddenAttributes">
+              <input type="button" id="showAttributes" value="Show Contact Attributes">
+            </div>
+            <div id="visibleAttributes" style="display:none;">
+              <input type="button" id="hideAttributes" value="Hide Contact Attributes">
+              <table id="attributes" style="width:100%;border:1px;">
+            
+          
+        
+      
+    
+   
+
+
+
+
+  </table></div></div></fieldset></form></section></body></html>
